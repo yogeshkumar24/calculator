@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:calculator/stack/stack.dart';
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -35,6 +34,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
     return Scaffold(
       appBar: AppBar(title: Text('My Calculator')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           Container(
             alignment: Alignment.centerRight,
@@ -46,18 +46,16 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
             padding: EdgeInsets.all(20),
             child: Text(result, ),
           ),
-          Expanded(child: Divider(),
 
-          ),
           Column(
                 children: [
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         buildButton("C", ),
-                        buildButton("DEL",),
+                        buildButton("Undo",),
+                        buildButton("Redo",),
                         buildButton("/",),
-                        buildButton("*",),
                       ]
                   ),
                   Row(
@@ -66,7 +64,8 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
                         buildButton("7",),
                         buildButton("8",),
                         buildButton("9",),
-                        buildButton("-",),
+                        buildButton("*",),
+
                       ]
                   ),
                   Row(
@@ -84,15 +83,15 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
                         buildButton("1",),
                         buildButton("2",),
                         buildButton("3",),
-                        buildButton("=",),
+                        buildButton("-",),
                       ]
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        buildButton("Undo",),
                         buildButton("0",),
-                        buildButton("Redo",),
+
+                        buildButton("=",),
                       ]
                   ),
                 ],
@@ -145,11 +144,8 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
         }
         equation = equation+element;
 
-      }else if(buttonText == "Undo"){
-
       }
-
-      else if(buttonText == "DEL"){
+      else if(buttonText == "Undo"){
         List list = equation.split("");
 
         redoStack.push(list.last);
@@ -167,7 +163,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
           ContextModel cm = ContextModel();
           result = "${exp.evaluate(EvaluationType.REAL, cm)}";
         }catch(e){
-          result = "error";
+          result = "Invalid format used";
         }
 
       }else {
@@ -202,6 +198,4 @@ class Stack {
   void clear() {
     _stack.clear();
   }
-
-  bool get isEmpty => _stack.isEmpty;
 }
