@@ -127,22 +127,33 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
     );
   }
 
-
+  Stack redoStack = Stack();
   onButtonPress(String buttonText) {
     setState(() {
       if(buttonText == "C"){
         equation = "0";
         result = "0";
-
       }
       else  if(buttonText == "Redo"){
-        String ele = Stack().pop();
+        String element = redoStack.pop();
 
-      }else if(buttonText == "DEL"){
+        if(element == "")
+          return;
+
+        if(equation == "0"){
+          equation = "";
+        }
+        equation = equation+element;
+
+      }else if(buttonText == "Undo"){
+
+      }
+
+      else if(buttonText == "DEL"){
         List list = equation.split("");
 
-       Stack().push(list.last);
-       print(list.last);
+        redoStack.push(list.last);
+        print(list.last);
         equation = equation.substring(0,equation.length -1);
         if(equation == ""){
           equation = "0";
@@ -170,7 +181,7 @@ class _SimpleCalculatorState extends State<SimpleCalculator>{
   }
 }
 
-class Stack<String> {
+class Stack {
   final _stack = Queue<String>();
 
   void push(String element) {
@@ -178,9 +189,14 @@ class Stack<String> {
   }
 
   String pop() {
-    final String lastElement = _stack.last;
-    _stack.removeLast();
-    return lastElement;
+    try {
+      final String lastElement = _stack.last;
+      _stack.removeLast();
+      return lastElement;
+    }catch(e){
+      print(e);
+    }
+    return "";
   }
 
   void clear() {

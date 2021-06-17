@@ -27,24 +27,24 @@
 //
 // }
 
-import 'dart:collection';
-
-class Stack<String> {
-  final _stack = Queue<String>();
-
-  void push(String element) {
-    _stack.addLast(element);
-  }
-
-  String pop() {
-    final String lastElement = _stack.last;
-    _stack.removeLast();
-    return lastElement;
-  }
-
-  void clear() {
-    _stack.clear();
-  }
-
-  bool get isEmpty => _stack.isEmpty;
-}
+// import 'dart:collection';
+//
+// class Stack<String> {
+//   final _stack = Queue<String>();
+//
+//   void push(String element) {
+//     _stack.addLast(element);
+//   }
+//
+//   String pop() {
+//     final String lastElement = _stack.last;
+//     _stack.removeLast();
+//     return lastElement;
+//   }
+//
+//   void clear() {
+//     _stack.clear();
+//   }
+//
+//   bool get isEmpty => _stack.isEmpty;
+// }
